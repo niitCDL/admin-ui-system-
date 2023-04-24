@@ -27,13 +27,14 @@ export default defineConfig({
           // onBeforeRouteLeave 'vue-router’的这个Api未被自动导入，在这里补充
           'vue-router': ['onBeforeRouteLeave'],
           '@/utils/tools': ['toast', 'showModal', 'showFullLoading', 'hideFullLoading'],
-          '@/utils/storage': ['getToken', 'setToken', 'removeToken'],
+          '@/utils/storage': ['getToken', 'setToken', 'removeToken', 'getTabList', 'setTabList', 'removeTabList'],
           '@/api/auth': ['getCaptcha', 'login', 'logout'],
           '@/api/admin': ['getInfo', 'rePassword'],
           '@/api/menu': ['getNav', 'getAuthority'],
           '@/stores/index': ['useAdminStore'],
           '@/hooks/useAuth': ['useAccountLogin', 'useLogout'],
-          '@/hooks/useAdmin': ['usePassword']
+          '@/hooks/useAdmin': ['usePassword'],
+          '@/hooks/useBreadCrumbs': ['useBreadCrumbs']
         }
       ],
       // 指定文件夹位置， 加 /** 可遍历子目录
