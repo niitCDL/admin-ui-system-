@@ -1,10 +1,6 @@
-<script setup>
-const { handleLogout } = useLogout()
-</script>
+<script setup></script>
 <template>
-  <div>
-    <el-button type="primary" @click="handleLogout">登出</el-button>
-  </div>
+  <div>仪表盘</div>
 </template>
 
 <style scoped></style>
