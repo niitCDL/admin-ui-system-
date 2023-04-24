@@ -1,22 +1,34 @@
 <script setup>
-const {
-  tableData,
-  loading,
-  currentPage,
-  total,
-  limit,
-  title,
-  form,
-  formRef,
-  formDrawerRef,
-  rules,
-  drawerTitle,
-  handleEdit,
-  handleSubmit,
-  handleCreate,
-  handleDelete,
-  getData
-} = useNotice()
+const { tableData, loading, currentPage, total, limit, getData, handleDelete } = useInitTable({
+  getList: getNoticePage,
+  delete: deleteNotice
+})
+
+const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCreate, handleEdit } = useInitForm({
+  form: {
+    title: '',
+    content: ''
+  },
+  rules: {
+    title: [
+      {
+        required: true,
+        message: '通知标题不能为空',
+        trigger: 'blur'
+      }
+    ],
+    content: [
+      {
+        required: true,
+        message: '通知内容不能为空',
+        trigger: 'blur'
+      }
+    ]
+  },
+  getData,
+  update: updateNotice,
+  create: saveNotice
+})
 </script>
 
 <template>
