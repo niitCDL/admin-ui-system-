@@ -1,6 +1,7 @@
 <script setup>
 const store = useAdminStore()
 const { sideWidth, menus } = storeToRefs(store)
+
 const router = useRouter()
 const route = useRoute()
 // 默认选中当前路由

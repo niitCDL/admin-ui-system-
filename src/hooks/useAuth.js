@@ -43,11 +43,15 @@ export function useAccountLogin() {
       }
       loading.value = true
 
-      storeLogin(form).then(() => {
-        toast('登录成功')
-        router.push('/')
-        loading.value = false
-      })
+      storeLogin(form)
+        .then(() => {
+          toast('登录成功')
+          router.push('/')
+          loading.value = false
+        })
+        .finally(() => {
+          loading.value = false
+        })
     })
   }
   return {

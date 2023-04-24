@@ -58,14 +58,7 @@ export function usePassword() {
       rePassword(data)
         .then(res => {
           console.log(res)
-          // if (res.code == 1) {
-          //   toast('修改密码成功，请重新登录')
-          //   storeLogout().then(() => {
-          //     router.push('/login')
-          //   })
-          // } else {
-          //   toast(res.msg, 'error')
-          // }
+          toast('修改密码成功，请重新登录')
           storeLogout().then(() => {
             router.push('/login')
           })
