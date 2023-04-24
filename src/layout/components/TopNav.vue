@@ -2,6 +2,8 @@
 const store = useAdminStore()
 
 const { sideWidth, adminInfo } = storeToRefs(store)
+console.log('AAA')
+console.log(adminInfo)
 
 const { handleSideWidth } = store
 

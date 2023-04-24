@@ -38,6 +38,7 @@ export const useAdminStore = defineStore('admin', {
         logout()
           .then(() => {
             removeToken()
+            removeTabList()
             this.adminInfo = {}
             resolve()
           })

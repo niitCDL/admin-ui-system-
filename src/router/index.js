@@ -161,6 +161,9 @@ router.beforeEach(async (to, from, next) => {
     toast('请勿重复登录', 'error')
     return next({ path: from.path ? from.path : '/' })
   }
+  if (to.path == '/login') {
+    hasGetInfo = false
+  }
 
   const { getStoreInfo } = useAdminStore()
   //  如果登录了，就获取用户信息，存储到 pinia
