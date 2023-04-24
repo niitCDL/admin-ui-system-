@@ -19,6 +19,7 @@ app.use(createPinia())
 app.use(ElementPlus)
 app.use(router)
 
+import 'nprogress/nprogress.css'
 import 'virtual:windi.css'
 
 app.mount('#app')
