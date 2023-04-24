@@ -29,7 +29,8 @@ export default defineConfig({
           '@/api/auth': ['getCaptcha', 'login', 'logout'],
           '@/api/admin': ['getInfo', 'rePassword'],
           '@/api/menu': ['getNav', 'getAuthority'],
-          '@/stores/index': ['useAdminStore']
+          '@/stores/index': ['useAdminStore'],
+          '@/hooks/useAuth': ['useAccountLogin', 'useLogout']
         }
       ],
       // 指定文件夹位置， 加 /** 可遍历子目录
