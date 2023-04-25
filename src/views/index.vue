@@ -10,6 +10,7 @@ setTimeout(() => {
 </script>
 <template>
   <div class="p-3">
+    <!-- 页面上方：统计面板组件 -->
     <el-row :gutter="20">
       <!-- 骨架屏，当panels数组长度为0的时候显示（数据还未加载完毕） -->
       <template v-if="panels.length == 0">
@@ -53,6 +54,17 @@ setTimeout(() => {
           </div>
         </el-card>
       </el-col>
+    </el-row>
+
+    <!--页面下方：左右结构 -->
+    <el-row :gutter="20" class="mt-5">
+      <!-- 左侧柱状图 -->
+      <el-col :span="12">
+        <IndexChart />
+      </el-col>
+
+      <!--右侧分类标签组件 -->
+      <el-col :span="12"> </el-col>
     </el-row>
   </div>
 </template>
