@@ -59,8 +59,10 @@ declare module '@vue/runtime-core' {
     IndexChart: typeof import('./components/IndexChart.vue')['default']
     IndexNav: typeof import('./components/IndexNav.vue')['default']
     IndexTag: typeof import('./components/IndexTag.vue')['default']
+    PieChart: typeof import('./components/PieChart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScatterChart: typeof import('./components/ScatterChart.vue')['default']
     SideMenu: typeof import('./layout/components/SideMenu.vue')['default']
     TopNav: typeof import('./layout/components/TopNav.vue')['default']
   }

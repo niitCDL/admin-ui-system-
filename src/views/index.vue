@@ -79,6 +79,17 @@ getstatistics3().then(res => {
         <IndexTag title="交易提示" tip="需要立即处理的交易订单" :btns="orders" />
       </el-col>
     </el-row>
+
+    <el-row class="mt-6">
+      <!-- 左侧饼图 -->
+      <el-col :span="12">
+        <PieChart />
+      </el-col>
+      <!-- 左侧scatter -->
+      <el-col :span="12">
+        <ScatterChart />
+      </el-col>
+    </el-row>
   </div>
 </template>
 

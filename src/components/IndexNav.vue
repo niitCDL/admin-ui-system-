@@ -53,6 +53,7 @@ const iconNavs = [
 
 const store = useAdminStore()
 const { menus } = store
+//动态快速导航
 const fastNav = []
 menus.forEach(e => {
   const obj = iconNavs.find(item => item.path === e.url)

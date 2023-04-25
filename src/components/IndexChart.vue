@@ -18,7 +18,6 @@ const options = [
 ]
 
 const handleChoose = type => {
-  console.log(type)
   current.value = type
   getData()
 }

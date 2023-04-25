@@ -50,6 +50,7 @@ declare global {
   const getstatistics1: typeof import('@/api/index')['getstatistics1']
   const getstatistics2: typeof import('@/api/index')['getstatistics2']
   const getstatistics3: typeof import('@/api/index')['getstatistics3']
+  const getstatistics4: typeof import('@/api/index')['getstatistics4']
   const h: typeof import('vue')['h']
   const hideFullLoading: typeof import('@/utils/tools')['hideFullLoading']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']

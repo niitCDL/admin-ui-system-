@@ -11,3 +11,7 @@ export function getstatistics2(type) {
 export function getstatistics3() {
   return axios.get('/sys/index/statistics3')
 }
+
+export function getstatistics4() {
+  return axios.get('/sys/index/statistics4')
+}
