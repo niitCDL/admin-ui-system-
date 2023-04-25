@@ -63,6 +63,9 @@ getstatistics3().then(res => {
       </el-col>
     </el-row>
 
+    <!-- 快速导航 -->
+    <IndexNav />
+
     <!--页面下方：左右结构 -->
     <el-row :gutter="20" class="mt-5">
       <!-- 左侧柱状图 -->
