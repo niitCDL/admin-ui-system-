@@ -32,6 +32,7 @@ export default defineConfig({
           '@/api/admin': ['getInfo', 'rePassword'],
           '@/api/menu': ['getNav', 'getAuthority'],
           '@/api/notice': ['getNoticePage', 'saveNotice', 'updateNotice', 'deleteNotice'],
+          '@/api/index': ['getstatistics1', 'getstatistics2', 'getstatistics3'],
           '@/stores/index': ['useAdminStore'],
           '@/hooks/useAuth': ['useAccountLogin', 'useLogout'],
           '@/hooks/useAdmin': ['usePassword'],

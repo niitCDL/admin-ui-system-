@@ -5,7 +5,7 @@ const { activeTab, tabList, changeTab, removeTab, handleClose } = useBreadCrumbs
 </script>
 
 <template>
-  <div class="tag-list" :style="{ left: sideWidth }">
+  <div class="tag-list transition-all duration-500" :style="{ left: sideWidth }">
     <el-tabs
       v-model="activeTab"
       type="card"

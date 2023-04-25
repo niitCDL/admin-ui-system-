@@ -86,7 +86,7 @@ const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCr
       </el-table-column>
     </el-table>
 
-    <div class="fixed bottom-8 left-[45%]">
+    <div class="fixed bottom-0 left-[45%]">
       <el-pagination
         background
         layout="prev, pager ,next"
