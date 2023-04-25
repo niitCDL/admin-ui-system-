@@ -9,6 +9,7 @@ export default defineConfig({
     'f-around': 'flex justify-around items-center',
     'f-between': 'flex justify-between items-center',
     'v-center': 'flex items-center',
-    'm-btn': 'bg-gradient-to-b from-cyan-500 to-blue-400 text-sky-100 rounded-full py-5 hover:text-white font-bold'
+    'm-btn': 'bg-gradient-to-b from-cyan-500 to-blue-400 text-sky-100 rounded-full py-5 hover:text-white font-bold',
+    'f-col-center': 'flex flex-col justify-between items-center'
   }
 })
