@@ -6,6 +6,7 @@ const { tableData, loading, currentPage, total, limit, getData, handleDelete } =
 
 const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCreate, handleEdit } = useInitForm({
   form: {
+    id: '',
     title: '',
     content: ''
   },
@@ -25,43 +26,57 @@ const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCr
       }
     ]
   },
+  // obj: { id: editId.value, title: form.title, content: form.content },
   getData,
   update: updateNotice,
   create: saveNotice
 })
+
+const multiSelecttionIds = ref([])
+const handleSelectionChange = e => {
+  multiSelecttionIds.value = e.map(o => o.id)
+  console.log(multiSelecttionIds.value)
+}
+
+//批量删除
+const multipleTableRef = ref(null)
+const handleMultiDelete = () => {
+  loading.value = true
+  deleteSelectAll(multiSelecttionIds.value)
+    .then(() => {
+      msg('删除成功')
+      //清空选中
+      if (multipleTableRef.value) {
+        multipleTableRef.value.clearSelection()
+      }
+      getData()
+    })
+    .finally(() => {
+      loading.value = false
+    })
+}
 </script>
 
 <template>
   <el-card shadow="never" class="border-0">
-    <!-- 左侧操作按钮区/右侧刷新 -->
-    <div class="f-between mb-4">
-      <div>
-        <el-button class="m-btn px-8 py-4" @click="handleCreate" v-permission="['sys:notice:save']">新增</el-button>
-        <el-button class="px-8 py-4 bg-green-500 text-light-50 rounded-full" v-permission="['sys:notice:import']"
-          >导入</el-button
-        >
-        <el-button
-          class="px-8 py-4 bg-indigo-500 text-light-50 rounded-full"
-          v-permission="['sys:notice:export']"
-          @click="handleExport"
-          >导出</el-button
-        >
-        <input
-          type="text"
-          v-model="title"
-          placeholder="请搜索"
-          class="text-gray-500 border-gray-300 solid border-1 outline-none rounded-2xl py-1 ml-3 w-60 pl-2 text-sm"
-        />
-        <el-button class="px-8 py-4 text-sky-500 rounded-full text-light-50 ml-2" @click="getData">搜索</el-button>
-      </div>
-      <el-tooltip effect="dark" content="刷新数据" placement="top">
-        <el-button text @click="getData">
-          <IEpRefresh />
-        </el-button>
-      </el-tooltip>
-    </div>
+    <!-- 新增、批量删除、刷新 -->
+    <ListHeader
+      layout="create,delete,refresh"
+      @create="handleCreate"
+      @refresh="getData"
+      @delete="handleMultiDelete"
+      v-permission="['sys:notice:save', 'sys:notice:delete']"
+    ></ListHeader>
 
-    <el-table :data="tableData" stripe v-loading="loading" class="w-full">
+    <el-table
+      ref="multipleTableRef"
+      @selection-change="handleSelectionChange"
+      :data="tableData"
+      stripe
+      v-loading="loading"
+      class="w-full"
+    >
+      <el-table-column type="selection" width="50" v-permission="['sys:notice:save', 'sys:notice:delete']" />
       <el-table-column prop="title" label="通知标题" />
       <el-table-column prop="content" label="通知内容" class="flex-1" />
       <el-table-column prop="createTime" label="发布时间" width="220" />

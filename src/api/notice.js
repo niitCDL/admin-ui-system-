@@ -15,3 +15,10 @@ export function updateNotice(data) {
 export function deleteNotice(id) {
   return axios.delete(`/sys/notice/${id}`)
 }
+
+export function deleteSelectAll(ids) {
+  console.log(ids)
+  console.log(ids.length)
+  ids = !Array.isArray(ids) ? [ids] : ids
+  return axios.post('/sys/notice/deletemulti', ids)
+}

@@ -26,12 +26,23 @@ export default defineConfig({
         {
           // onBeforeRouteLeave 'vue-router’的这个Api未被自动导入，在这里补充
           'vue-router': ['onBeforeRouteLeave'],
-          '@/utils/tools': ['toast', 'showModal', 'showFullLoading', 'hideFullLoading'],
+          '@/utils/tools': ['toast', 'showModal', 'showFullLoading', 'hideFullLoading', 'msg'],
           '@/utils/storage': ['getToken', 'setToken', 'removeToken', 'getTabList', 'setTabList', 'removeTabList'],
           '@/api/auth': ['getCaptcha', 'login', 'logout'],
-          '@/api/admin': ['getInfo', 'rePassword'],
+          '@/api/admin': [
+            'getInfo',
+            'rePassword',
+            'getUserPage',
+            'saveUser',
+            'updateUser',
+            'deleteUser',
+            'deleteSelectAllUser',
+            'changeStatus',
+            'importUser'
+          ],
+          '@/api/export': ['exportUser'],
           '@/api/menu': ['getNav', 'getAuthority'],
-          '@/api/notice': ['getNoticePage', 'saveNotice', 'updateNotice', 'deleteNotice'],
+          '@/api/notice': ['getNoticePage', 'saveNotice', 'updateNotice', 'deleteNotice', 'deleteSelectAll'],
           '@/api/index': ['getstatistics1', 'getstatistics2', 'getstatistics3', 'getstatistics4'],
           '@/stores/index': ['useAdminStore'],
           '@/hooks/useAuth': ['useAccountLogin', 'useLogout'],

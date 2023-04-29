@@ -46,7 +46,7 @@ const option = reactive({
     }
   ],
   title: {
-    text: '销售走向',
+    text: '散点图',
     subtext: 'By ecStat.regression',
     sublink: 'https://github.com/ecomfe/echarts-stat',
     left: 'center'

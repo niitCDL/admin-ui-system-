@@ -18,6 +18,14 @@ export function showModal(content = '提示内容', type = 'warning', title = ''
   })
 }
 
+export function msg(content = '提示内容', type = 'success', duration = 1000) {
+  ElMessage({
+    message: content,
+    type: type,
+    duration: duration
+  })
+}
+
 //显示全局进度条
 export function showFullLoading() {
   nProgress.start()

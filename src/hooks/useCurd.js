@@ -68,9 +68,7 @@ export function useInitForm(opt = {}) {
   const handleSubmit = () => {
     formRef.value.validate(valid => {
       if (!valid) return
-
       formDrawerRef.value.showLoading()
-
       let body = {}
       if (opt.beforeSubmit && typeof opt.beforeSubmit == 'function') {
         body = opt.beforeSubmit({ ...form })
@@ -78,9 +76,7 @@ export function useInitForm(opt = {}) {
         body = form
       }
 
-      const fun = editId.value
-        ? opt.update({ id: editId.value, title: form.title, content: form.content })
-        : opt.create(body)
+      const fun = editId.value ? opt.update(form) : opt.create(body)
 
       fun
         .then(() => {
@@ -101,6 +97,7 @@ export function useInitForm(opt = {}) {
     for (const key in defaultForm) {
       form[key] = row[key]
     }
+    console.log(form)
   }
 
   // 新增
@@ -113,6 +110,7 @@ export function useInitForm(opt = {}) {
   // 编辑
   const handleEdit = row => {
     editId.value = row.id
+    console.log(row.id)
     resetForm(row)
     formDrawerRef.value.open()
   }
