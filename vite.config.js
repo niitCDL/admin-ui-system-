@@ -26,7 +26,7 @@ export default defineConfig({
         {
           // onBeforeRouteLeave 'vue-router’的这个Api未被自动导入，在这里补充
           'vue-router': ['onBeforeRouteLeave'],
-          '@/utils/tools': ['toast', 'showModal', 'showFullLoading', 'hideFullLoading', 'msg'],
+          '@/utils/tools': ['toast', 'showModal', 'showFullLoading', 'hideFullLoading', 'msg', 'queryParams'],
           '@/utils/storage': ['getToken', 'setToken', 'removeToken', 'getTabList', 'setTabList', 'removeTabList'],
           '@/api/auth': ['getCaptcha', 'login', 'logout'],
           '@/api/admin': [

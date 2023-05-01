@@ -1,5 +1,17 @@
 // 通用列表，分页，新增，删除，修改 封装
 export function useInitTable(opt = {}) {
+  let searchForm = null
+  let resetSearchForm = null
+  if (opt.searchForm) {
+    searchForm = reactive({ ...opt.searchForm })
+    resetSearchForm = () => {
+      for (const key in opt.searchForm) {
+        searchForm[key] = opt.searchForm[key]
+      }
+      getData()
+    }
+  }
+
   const tableData = ref([])
   const loading = ref(false)
 
@@ -17,7 +29,7 @@ export function useInitTable(opt = {}) {
     loading.value = true
     console.log(opt)
     opt
-      .getList(currentPage.value, limit.value, '')
+      .getList(currentPage.value, limit.value, searchForm)
       .then(res => {
         tableData.value = res.list
         total.value = res.total
@@ -43,14 +55,54 @@ export function useInitTable(opt = {}) {
       })
   }
 
+  const multiSelecttionIds = ref([])
+  const handleSelectionChange = e => {
+    multiSelecttionIds.value = e.map(o => o.id)
+    console.log(multiSelecttionIds.value)
+  }
+
+  //批量删除
+  const multipleTableRef = ref(null)
+  const handleMultiDelete = () => {
+    loading.value = true
+    opt
+      .deleteSelectAll(multiSelecttionIds.value)
+      .then(() => {
+        msg('删除成功')
+        //清空选中
+        if (multipleTableRef.value) {
+          multipleTableRef.value.clearSelection()
+        }
+        getData()
+      })
+      .finally(() => {
+        loading.value = false
+      })
+  }
+
+  //修改用户状态
+  const handleStatusChange = (row, status) => {
+    changeStatus(row.id, status).then(() => {
+      msg('修改状态成功')
+      row.status = status
+    })
+  }
+
   return {
+    searchForm,
+    resetSearchForm,
+    multiSelecttionIds,
+    multipleTableRef,
     tableData,
     loading,
     currentPage,
     total,
     limit,
     getData,
-    handleDelete
+    handleDelete,
+    handleSelectionChange,
+    handleMultiDelete,
+    handleStatusChange
   }
 }
 

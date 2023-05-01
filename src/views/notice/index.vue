@@ -1,7 +1,25 @@
 <script setup>
-const { tableData, loading, currentPage, total, limit, getData, handleDelete } = useInitTable({
+const {
+  searchForm,
+  resetSearchForm,
+  tableData,
+  loading,
+  currentPage,
+  total,
+  limit,
+  getData,
+  handleDelete,
+  handleSelectionChange,
+  multipleTableRef,
+  handleMultiDelete
+} = useInitTable({
+  searchForm: {
+    title: '',
+    content: ''
+  },
   getList: getNoticePage,
-  delete: deleteNotice
+  delete: deleteNotice,
+  deleteSelectAll: deleteSelectAll
 })
 
 const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCreate, handleEdit } = useInitForm({
@@ -26,39 +44,24 @@ const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCr
       }
     ]
   },
-  // obj: { id: editId.value, title: form.title, content: form.content },
+
   getData,
   update: updateNotice,
   create: saveNotice
 })
-
-const multiSelecttionIds = ref([])
-const handleSelectionChange = e => {
-  multiSelecttionIds.value = e.map(o => o.id)
-  console.log(multiSelecttionIds.value)
-}
-
-//批量删除
-const multipleTableRef = ref(null)
-const handleMultiDelete = () => {
-  loading.value = true
-  deleteSelectAll(multiSelecttionIds.value)
-    .then(() => {
-      msg('删除成功')
-      //清空选中
-      if (multipleTableRef.value) {
-        multipleTableRef.value.clearSelection()
-      }
-      getData()
-    })
-    .finally(() => {
-      loading.value = false
-    })
-}
 </script>
 
 <template>
   <el-card shadow="never" class="border-0">
+    <!--搜索组件 -->
+    <Search :model="searchForm" @search="getData" @reset="resetSearchForm">
+      <el-form-item label="通知标题" :span="4">
+        <el-input v-model="searchForm.title" placeholder="通知标题" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="通知内容" :span="4">
+        <el-input v-model="searchForm.content" placeholder="通知内容" clearable></el-input>
+      </el-form-item>
+    </Search>
     <!-- 新增、批量删除、刷新 -->
     <ListHeader
       layout="create,delete,refresh"

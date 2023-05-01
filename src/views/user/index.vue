@@ -1,9 +1,32 @@
 <script setup>
 import { exportUser } from '../../api/export'
+import zhcn from 'element-plus/lib/locale/lang/zh-cn'
 
-const { tableData, loading, currentPage, total, limit, getData, handleDelete } = useInitTable({
+const {
+  searchForm,
+  resetSearchForm,
+  multipleTableRef,
+  tableData,
+  loading,
+  currentPage,
+  total,
+  limit,
+  getData,
+  handleDelete,
+  handleSelectionChange,
+  handleMultiDelete,
+  handleStatusChange
+} = useInitTable({
+  searchForm: {
+    username: '',
+    realName: '',
+    mobile: '',
+    gender: null,
+    dateValue: ''
+  },
   getList: getUserPage,
-  delete: deleteUser
+  delete: deleteUser,
+  deleteSelectAll: deleteSelectAllUser
 })
 
 const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCreate, handleEdit } = useInitForm({
@@ -42,30 +65,6 @@ const { formDrawerRef, formRef, form, rules, drawerTitle, handleSubmit, handleCr
   update: updateUser,
   create: saveUser
 })
-
-const multiSelecttionIds = ref([])
-const handleSelectionChange = e => {
-  multiSelecttionIds.value = e.map(o => o.id)
-  console.log(multiSelecttionIds.value)
-}
-
-//批量删除
-const multipleTableRef = ref(null)
-const handleMultiDelete = () => {
-  loading.value = true
-  deleteSelectAllUser(multiSelecttionIds.value)
-    .then(() => {
-      msg('删除成功')
-      //清空选中
-      if (multipleTableRef.value) {
-        multipleTableRef.value.clearSelection()
-      }
-      getData()
-    })
-    .finally(() => {
-      loading.value = false
-    })
-}
 
 //导出数据
 const handleExport = (filename = '用户数据') => {
@@ -130,17 +129,84 @@ const checkFileType = file => {
   return true
 }
 
-//修改用户状态
-const handleStatusChange = (row, status) => {
-  changeStatus(row.id, status).then(() => {
-    msg('修改状态成功')
-    row.status = status
-  })
-}
+const options = reactive([
+  {
+    label: '男',
+    value: 0
+  },
+  { label: '女', value: 1 },
+  { label: '未知', value: 2 }
+])
+
+//日期显示为中文
+const local = zhcn
+//快捷选择范围
+const shortcuts = [
+  {
+    text: '最近一周',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      return [start, end]
+    }
+  },
+  {
+    text: '最近一个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      return [start, end]
+    }
+  },
+  {
+    text: '最近三个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+      return [start, end]
+    }
+  }
+]
 </script>
 
 <template>
   <el-card shadow="never" class="border-0">
+    <!--搜索组件 -->
+    <Search :model="searchForm" @search="getData" @reset="resetSearchForm">
+      <el-form-item label="用户名" :span="4">
+        <el-input v-model="searchForm.username" placeholder="用户名" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="姓名" :span="4">
+        <el-input v-model="searchForm.realName" placeholder="姓名" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="手机号">
+        <el-input v-model="searchForm.mobile" placeholder="手机号" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="性别" :span="4">
+        <el-select v-model="searchForm.gender" placeholder="选择性别" clearable>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
+      </el-form-item>
+      <template #show>
+        <el-form-item label="创建时间" class="ml-4">
+          <el-config-provider :locale="local">
+            <el-date-picker
+              v-model="searchForm.dateValue"
+              type="datetimerange"
+              unlink-panels
+              range-separator="到"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              size="small"
+              :shortcuts="shortcuts"
+            />
+          </el-config-provider>
+        </el-form-item>
+      </template>
+    </Search>
     <!-- 新增、批量删除、刷新 -->
     <ListHeader
       layout="create,delete,export,import,refresh"

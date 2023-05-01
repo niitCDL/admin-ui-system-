@@ -1,7 +1,11 @@
 import axios from '@/utils/axios'
 
-export function getNoticePage(page, limit, title) {
-  return axios.get(`/sys/notice/page?page=${page}&limit=${limit}&title=${title}`)
+export function getNoticePage(page, limit, query = {}) {
+  //参数准备，日期范围的组件中，dateValue[0]和[1]可以取出开始和结束时间，其余展开
+  let params = { page, limit, ...query }
+  let r = queryParams(params)
+  console.log(r)
+  return axios.get(`/sys/notice/page${r}`)
 }
 
 export function saveNotice(data) {
