@@ -12,7 +12,9 @@ export function rePassword(data) {
 //分页查询
 export function getUserPage(page, limit, query = {}) {
   //参数准备，日期范围的组件中，dateValue[0]和[1]可以取出开始和结束时间，其余展开
+  console.log(query)
   let params = { page, limit, beginTime: query.dateValue[0], endTime: query.dateValue[1], ...query }
+  console.log(params)
   let r = queryParams(params)
   console.log(r)
   return axios.get(`/sys/user/page${r}`)

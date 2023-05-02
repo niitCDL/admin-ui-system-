@@ -30,7 +30,7 @@ const { sideWidth } = storeToRefs(store)
 
 <style scoped>
 .el-main {
-  @apply w-full transition-all duration-500 h-screen text-left;
+  @apply w-full transition-all duration-500 h-screen text-left overflow-y-visible;
   padding: 0;
 }
 .el-aside {

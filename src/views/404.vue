@@ -1,7 +1,9 @@
 <script setup></script>
 
 <template>
-  <div>404</div>
+  <div>
+    <img src="/404.png" alt="" />
+  </div>
 </template>
 
 <style scoped></style>

@@ -25,7 +25,6 @@ export function useInitTable(opt = {}) {
     if (typeof p == 'number') {
       currentPage.value = p
     }
-
     loading.value = true
     console.log(opt)
     opt

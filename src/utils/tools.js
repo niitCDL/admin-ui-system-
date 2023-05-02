@@ -40,10 +40,11 @@ export function hideFullLoading() {
 export function queryParams(query) {
   let q = []
   for (const key in query) {
-    if (query[key]) {
+    if (query[key] != null && query[key] != '') {
       q.push(`${key}=${encodeURIComponent(query[key])}`)
     }
   }
+  console.log(q)
   let r = q.join('&')
   r = r ? '?' + r : ''
   return r
