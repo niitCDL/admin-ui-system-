@@ -41,7 +41,8 @@ export default defineConfig({
             'importUser'
           ],
           '@/api/export': ['exportUser'],
-          '@/api/menu': ['getNav', 'getAuthority'],
+          '@/api/menu': ['getNav', 'getAuthority', 'getMenuList'],
+          '@/api/role': ['getRoleList', 'getRoleInfo', 'createRole', 'updateRole', 'deleteRole', 'setRoleMenus'],
           '@/api/notice': ['getNoticePage', 'saveNotice', 'updateNotice', 'deleteNotice', 'deleteSelectAll'],
           '@/api/index': ['getstatistics1', 'getstatistics2', 'getstatistics3', 'getstatistics4'],
           '@/stores/index': ['useAdminStore'],
